@@ -16,7 +16,10 @@ Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofdd
   - [Others](https://carto.com/docs/carto-engine/sql-api/making-calls#response-formats)
 
 - [SQL Performance](https://carto.com/docs/carto-engine/sql-api/query-optimizations)
-  - Use the `cartodb_id` (if you know it)
+  - Ask for only the columns you need
+  - [Indices](http://revenant.ca/www/postgis/workshop/indexing.html)
+  - [Geometry simplification](http://www.postgis.org/docs/ST_Simplify.html)
+  - Use the `cartodb_id`. Example:
 ```SQL
 SELECT
   *
@@ -25,9 +28,6 @@ FROM
 WHERE
   cartodb_id = <some_id>
 ```
-  - Ask for only the columns you need
-  - [Indices](http://revenant.ca/www/postgis/workshop/indexing.html)
-  - [Geometry simplification](http://www.postgis.org/docs/ST_Simplify.html)
 
 - Rasters
   - Tiling for TMS

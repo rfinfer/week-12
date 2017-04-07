@@ -73,7 +73,7 @@ from the geometry you've drawn.
 /** Notice the use of L.Map here. This is an extension of an organizational strategy we've already discussed. */
 var app = {
   apikey: "3a5ff146a6e40b37b835932405e7417d7154d587",
-  map: L.map('map', { center: [40.75583970971843, -73.795166015625], zoom: 11 }),
+  map: L.map('map', { center: [40.75583970971843, -73.795166015625], zoom: 3 }),
   geojsonClient: new cartodb.SQL({ user: 'moradology', format: 'geojson' }),
   drawnItems: new L.FeatureGroup()
 };

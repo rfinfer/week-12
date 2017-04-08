@@ -12,19 +12,68 @@
   </head>
   <body>
     <!-- Sidebar -->
-    <div class="sidebar">
+
+    <div id="sidebar">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#1">One</a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#2">Two</a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#3">Three</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="1">
+          <div class="input-group">
+            <input id="person_cou" type="number"
+                   class="form-control"
+                   placeholder="person_cou"
+                   disabled>
+            <input id="cartodb_id" type="number"
+                   class="form-control"
+                   placeholder="cartodb_id"
+                   disabled>
+          </div>
+
+        </div>
+        <div class="tab-pane" id="2">
+          <h3>Movies</h3>
+          <ul>
+            <li>Spiderman</li>
+            <li>The Artist</li>
+            <li>You've Got Mail</li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="3">
+          <h3>Lyrics</h3>
+          <p>
+            Well, if you want to sing out, sing out<br>
+            And if you want to be free, be free<br>
+            'Cause there's a million things to be<br>
+            You know that there are<br>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--<div class="sidebar">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
             <h1>Title Here</h1>
             <div class="input-group">
-              <input id="name" type="text"
+              <input id="person_cou" type="number"
                      class="form-control"
-                     placeholder="name"
+                     placeholder="person_cou"
                      disabled>
-              <input id="cartodb_id" type="number"
+              <input id="fatal_coun" type="number"
                      class="form-control"
-                     placeholder="cartodb_id"
+                     placeholder="fatal_coun"
                      disabled>
             </div>
           </div>
@@ -34,7 +83,7 @@
         <ul id="project-list" class="list-group">
         </ul>
       </div>
-    </div>
+    </div>!-->
     <!-- Map -->
     <div id="map" class="map">
       <div id="time-window"></div>
@@ -44,7 +93,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.js"></script>
+    <script src="js/leaflet-heat.js"></script>
     <script src="js/setup.js"></script>
   </body>
 </html>
-

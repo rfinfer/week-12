@@ -20,6 +20,31 @@ body {
     height: 100%;
     top: 0;
 }
+#sidebar {
+  width: 360px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+}
+
+#map {
+  position: absolute;
+  left: 360px;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  background-color: #ccc;
+}
+
+.tab-content {
+  padding: 10px;
+}
+
+.nav.nav-tabs {
+  padding-top: 10px;
+}
 
 .sidebar {
     position: absolute;

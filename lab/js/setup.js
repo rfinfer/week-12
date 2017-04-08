@@ -72,9 +72,9 @@ from the geometry you've drawn.
 
 /** Notice the use of L.Map here. This is an extension of an organizational strategy we've already discussed. */
 var app = {
-  apikey: "3a5ff146a6e40b37b835932405e7417d7154d587",
-  map: L.map('map', { center: [40.75583970971843, -73.795166015625], zoom: 3 }),
-  geojsonClient: new cartodb.SQL({ user: 'moradology', format: 'geojson' }),
+  apikey: "8aa0bfd58931875bd27eb556a286210717e4ea67",
+  map: L.map('map', { drawcontrol:true, center: [40.75583970971843, -73.795166015625], zoom: 3 }),
+  geojsonClient: new cartodb.SQL({ user: 'rfinfer', format: 'geojson' }),
   drawnItems: new L.FeatureGroup()
 };
 
@@ -86,17 +86,40 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   ext: 'png'
 }).addTo(app.map);
 
+// var drawnItems = new L.FeatureGroup();
+//    map.addLayer(drawnItems);
+//    var drawControl = new L.Control.Draw({
+//        edit: {
+//            featureGroup: drawnItems
+//        }
+//    });
+//    map.addControl(drawControl);
+var allData;
 // The initial query by which we map the geojson representation of a table
-app.geojsonClient.execute("SELECT * FROM world_borders") // 'LIMIT' should be added to the end of this line
+app.geojsonClient.execute("SELECT * FROM crash2011_2014v2") // 'LIMIT' should be added to the end of this line
   .done(function(data) {
-    L.geoJson(data, {
-      onEachFeature: function(feature, layer) {
-        layer.on('click', function() { fillForm(feature.properties); });
-      }
-    }).addTo(app.map);
+    allData = data;
+    // L.geoJson(data, {
+    //   onEachFeature: function(feature, layer) {
+    //     layer.on('click', function() { fillForm(feature.properties); });
+    //   }
+    // }).addTo(app.map);
+
+
+    var heatLayerArray = data.features.map(function(feature){
+        return feature.geometry.coordinates.reverse()
+    	});
+    //Leaflet heat setup
+    var heat = L.heatLayer(
+    	heatLayerArray, {radius: 25}).addTo(app.map);
   })
   .error(function(errors) {
   });
+
+
+
+
+
 
 // Leaflet draw setup
 app.map.addLayer(app.drawnItems);
@@ -110,7 +133,7 @@ app.map.addControl(
     draw: {
       rectangle: false,
       polyline: false,
-      polygon: false,
+      polygon: true,
       marker: false,
       circle: false
     }
@@ -120,7 +143,7 @@ app.map.addControl(
 // Automatically fill the form on the left from geojson response
 var fillForm = function(properties) {
   $('#cartodb_id').val(properties.cartodb_id);
-  $('#name').val(properties.name);
+  $('#person_cou').val(properties.person_cou);
 };
 
 // Handling the creation of Leaflet.Draw layers

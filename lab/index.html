@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -14,15 +15,25 @@
     <!-- Sidebar -->
 
     <div id="sidebar">
-      <ul class="nav nav-tabs">
+
+   <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <button type="button" id= "All" class="btn btn-default">All Crashes</button>
+        <button type="button" id = "Bike" class="btn btn-default">Bicycle Crashes</button>
+        <button type="button" id = "Ped" class="btn btn-default">Pedestrian Crashes</button>
+      </div>
+
+<!--  <button id = "All">All Crashes</button>
+      <button id = "Bike">Bicycle Crashes</button>
+      <button id = "Ped">Pedestrian Crashes</button>-->
+<!--      <ul class="nav nav-tabs">
         <li class="active">
-          <a data-toggle="tab" href="#1">One</a>
+          <a data-toggle="tab" href="#1">All Crashes</a>
         </li>
         <li>
-          <a data-toggle="tab" href="#2">Two</a>
+          <a data-toggle="tab" href="#2">Pedestrian</a>
         </li>
         <li>
-          <a data-toggle="tab" href="#3">Three</a>
+          <a data-toggle="tab" href="#3">Bicycle</a>
         </li>
       </ul>
       <div class="tab-content">
@@ -40,21 +51,20 @@
 
         </div>
         <div class="tab-pane" id="2">
-          <h3>Movies</h3>
+          <h3>Pedestrian Crashes: Major Injuries and Fatalities</h3>
           <ul>
-            <li>Spiderman</li>
-            <li>The Artist</li>
-            <li>You've Got Mail</li>
+            <li>info</li>
+
           </ul>
         </div>
         <div class="tab-pane" id="3">
-          <h3>Lyrics</h3>
+          <h3>Bicyclist Crashes: Major Injuries and Fatalities</h3>
           <p>
-            Well, if you want to sing out, sing out<br>
-            And if you want to be free, be free<br>
-            'Cause there's a million things to be<br>
-            You know that there are<br>
+            info<br>
+
           </p>
+        </div> -->
+        <div class = "ct-chart">
         </div>
       </div>
     </div>
@@ -94,6 +104,8 @@
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.js"></script>
     <script src="js/leaflet-heat.js"></script>
+    <script src="js/chartist.js"></script>
     <script src="js/setup.js"></script>
+
   </body>
 </html>

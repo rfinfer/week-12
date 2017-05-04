@@ -1,3 +1,4 @@
+
 body {
     padding: 0;
     overflow: hidden;
@@ -27,6 +28,7 @@ body {
   bottom: 0;
   right: 0;
   top: 0;
+  background-color: #eff0f2;
 }
 
 #map {
@@ -38,8 +40,44 @@ body {
   background-color: #ccc;
 }
 
+.title{
+  font-family: Cabin;
+	font-size: 18px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: #79989b;
+}
+p{
+  font-family: Cabin;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+  color: teal;
+}
+#All{
+  font-size: 12;
+  background-color: #5642f4;
+  color: white;
+  border-radius: 12px;
+  font-family: Cabin;
+}
+#Ped{
+  font-size: 12;
+  background-color: #5cc490;
+  color: white;
+  border-radius: 12px;
+  font-family: Cabin;
+}
 #Bike {
-  color: blue;
+  font-size: 12;
+  background-color: #45b7cc;
+  color: white;
+  border-radius: 12px;
+  font-family: Cabin;
 }
 .tab-content {
   padding: 10px;
@@ -104,4 +142,42 @@ body {
 .navbar-brand {
     font-size: 14px;
     font-weight: bold;
+}
+
+.ct-legend {
+    position: relative;
+    z-index: 10;
+
+    li {
+        position: relative;
+        padding-left: 23px;
+        margin-bottom: 3px;
+    }
+
+    li:before {
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        left: 0;
+        content: '';
+        border: 3px solid transparent;
+        border-radius: 2px;
+    }
+
+    li.inactive:before {
+        background: transparent;
+    }
+
+    &.ct-legend-inside {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    @for $i from 0 to length($ct-series-colors) {
+        .ct-series-#{$i}:before {
+            background-color: nth($ct-series-colors, $i + 1);
+            border-color: nth($ct-series-colors, $i + 1);
+        }
+    }
 }

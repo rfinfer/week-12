@@ -24,16 +24,24 @@ body {
 #sidebar {
   width: 360px;
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 10px;
+  bottom: 100px;
   right: 0;
-  top: 0;
-  background-color: #eff0f2;
+  top: 100px;
+  background-color: rgb(211, 217, 226);
+  border-radius: 10px;
+  z-index: 1;
 }
-
+.ct-chart {
+  font-size: 12;
+background-color:;
+color: white;
+border-radius: 12px;
+font-family: PT Sans;
+}
 #map {
   position: absolute;
-  left: 360px;
+  left: 0px;
   bottom: 0;
   right: 0;
   top: 0;
@@ -41,7 +49,7 @@ body {
 }
 
 .title{
-  font-family: Cabin;
+  font-family: PT Sans;
 	font-size: 18px;
 	font-style: normal;
 	font-variant: normal;
@@ -50,7 +58,7 @@ body {
   color: #79989b;
 }
 p{
-  font-family: Cabin;
+  font-family: PT Sans;
   font-size: 14px;
   font-style: normal;
   font-variant: normal;
@@ -58,26 +66,34 @@ p{
   line-height: 26.4px;
   color: teal;
 }
+
+.input-group{
+  font-size: 12;
+  background-color: black;
+  color: white;
+  border-radius: 12px;
+  font-family: PT Sans;
+}
 #All{
   font-size: 12;
   background-color: #5642f4;
   color: white;
   border-radius: 12px;
-  font-family: Cabin;
+  font-family: PT Sans;
 }
 #Ped{
   font-size: 12;
   background-color: #5cc490;
   color: white;
   border-radius: 12px;
-  font-family: Cabin;
+  font-family: PT Sans;
 }
 #Bike {
   font-size: 12;
   background-color: #45b7cc;
   color: white;
   border-radius: 12px;
-  font-family: Cabin;
+  font-family: PT Sans;
 }
 .tab-content {
   padding: 10px;

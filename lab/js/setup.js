@@ -126,118 +126,123 @@ console.log("barchart carto errors:", errors);
 
 
 //need to use set.SQL to filter between tabs: SELECT * FROM crash2011_2014v2 WHERE ped_count>0
-//USING SET.SQL TO FILTER
-
-var pointSubLayer;
-
-//Setting interactivity breaks the points....
-console.log("appmap",app.map);
-var otherPointLayer;
-var pointLayer = cartodb.createLayer(app.map, {
-     user_name: 'rfinfer',
-     type: 'cartodb',
-     //interactivity: true,
-     sublayers: [
-       {
-         cartocss: "#layer { marker-fill: #5642f4; }", //need to see if this should be filled in
-         sql: "SELECT * FROM crash2011_2014v2", //what you want to show up originally
-      //   interactivity: ['person_cou'],
-       }
-     ]
-
- }).addTo(app.map)
- .on('done', function(layer) {
-   otherPointLayer = layer;
-   pointSubLayer =  layer.getSubLayer(0);
-
-
-   // WORK IN PROGRESS: Clicking on a point should call fillForm with appropriate data
-   // Set interactivity
+// //USING SET.SQL TO FILTER
+//
+// var pointSubLayer;
+//
+// //Setting interactivity breaks the points....
+// console.log("appmap",app.map);
+// var otherPointLayer;
+// var pointLayer = cartodb.createLayer(app.map, {
+//      user_name: 'rfinfer',
+//      type: 'cartodb',
+//      interactivity: true,
+//      sublayers: [
+//        {
+//          cartocss: "#layer { marker-fill: #5642f4; }", //need to see if this should be filled in
+//          sql: "SELECT * FROM crash2011_2014v2", //what you want to show up originally
+//        interactivity: ['person_count'],
+//        }
+//      ]
+//
+//  }).addTo(app.map)
+//  .on('done', function(layer) {
+//    otherPointLayer = layer;
+//    pointSubLayer =  layer.getSubLayer(0);
+//
+//
+//    // WORK IN PROGRESS: Clicking on a point should call fillForm with appropriate data
+//    // Set interactivity
 //   layer.setInteraction(true);
-
-  //  //pointSubLayer.setInteraction(true);
-  //  layer.on('featureClick',function(e, latlng, pos, data) {
-  //     console.log(data);
-  //   });
-
-
-   // Automatically fill the form on the left from geojson response
-// var fillForm = function(properties) {
-//   $('#cartodb_id').val(properties.cartodb_id);
-//   $('#name').val(properties.name);
-//   $('#person_cou').val(properties.person_cou);
-// };
-    // L.geoJson(data, {
-   //   onEachFeature: function(feature, layer) {
-   //     layer.on('click', function() { fillForm(feature.properties); });
-   //   }
-   // }).addTo(app.map);
-
- //THIS BREAKS THE MAP??
-
-
-
-   pointSubLayer.hide();
-   $('#Ped').click(function(){
-     console.log("ped button clicked");
-     layer.getSubLayer(0).setSQL("SELECT * FROM crash2011_2014v2 WHERE ped_count>0");
-     layer.getSubLayer(0).setCartoCSS("#layer { marker-fill: #5cc490;}")
-      //CHART FOR PED CRASHES
-      app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 WHERE ped_count>0 GROUP BY crash_year ORDER BY crash_year")
-        .done(function(data) {
-          allData = data;
-
-          console.log(data)
-          var fatalPedArray = allData.rows.map(function(feature){
-            return feature.fatal_count_sum
-          });
-          console.log(fatalPedArray);
-
-          var seriousPedArray = allData.rows.map(function(feature){
-            return feature.maj_inj_count_sum
-          });
-          console.log(seriousPedArray);
-
-          var totalPedArray = allData.rows.map(function(feature){
-            return feature.count
-          });
-          console.log(totalPedArray);
-          new Chartist.Bar('.ct-chart', {
-            labels: ['2011', '2012', '2013', '2014'],
-        //     plugins: [
-        //     Chartist.plugins.legend()
-        // ],
-            series: [
-              //total = allData.rows.count
-              //totalArray,
-              //serious
-              seriousPedArray,
-              //fatal
-              fatalPedArray
-            ]
-          }, {
-            seriesBarDistance: 5,
-            axisX: {
-              offset: 30
-            },
-            axisY: {
-              offset: 30,
-              high: 100,
-              labelInterpolationFnc: function(value) {
-                return value + ''
-              },
-              scaleMinSpace: 15
-            }
-          });
-      })
-
-        .error(function(errors) {
-          console.log("barchart carto errors:", errors);
-        });
-
-
-
-   });
+//   // cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['person_count'], {
+//   //     infowindowTemplate: $('#infowindow_template').html(),
+//   //       infowindowTemplate: infowindowTemplate,
+//   //         templateType: 'mustache'
+//   //       })
+//   //  //pointSubLayer.setInteraction(true);
+//     layer.on('featureClick',function(e, latlng, pos, data) {
+//       console.log(data);
+//       $('#person_count').val(data.person_count);
+//      });
+//
+//
+//    // Automatically fill the form on the left from geojson response
+// //  var fillForm = function(properties) {
+// //    $('#cartodb_id').val(properties.cartodb_id);
+// // //   $('#name').val(properties.name);
+// //    $('#person_count').val(properties.person_count);
+// //  };
+// //      L.geoJson(data, {
+// //       onEachFeature: function(feature, layer) {
+// //         layer.on('click', function() { fillForm(feature.properties); });
+// //       }
+// //     }).addTo(app.map);
+//
+//  //THIS BREAKS THE MAP??
+//
+//
+//
+//    pointSubLayer.hide();
+//    $('#Ped').click(function(){
+//      console.log("ped button clicked");
+//      layer.getSubLayer(0).setSQL("SELECT * FROM crash2011_2014v2 WHERE ped_count>0");
+//      layer.getSubLayer(0).setCartoCSS("#layer { marker-fill: #5cc490;}")
+//       //CHART FOR PED CRASHES
+//       app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 WHERE ped_count>0 GROUP BY crash_year ORDER BY crash_year")
+//         .done(function(data) {
+//           allData = data;
+//
+//           console.log(data)
+//           var fatalPedArray = allData.rows.map(function(feature){
+//             return feature.fatal_count_sum
+//           });
+//           console.log(fatalPedArray);
+//
+//           var seriousPedArray = allData.rows.map(function(feature){
+//             return feature.maj_inj_count_sum
+//           });
+//           console.log(seriousPedArray);
+//
+//           var totalPedArray = allData.rows.map(function(feature){
+//             return feature.count
+//           });
+//           console.log(totalPedArray);
+//           new Chartist.Bar('.ct-chart', {
+//             labels: ['2011', '2012', '2013', '2014'],
+//         //     plugins: [
+//         //     Chartist.plugins.legend()
+//         // ],
+//             series: [
+//               //total = allData.rows.count
+//               //totalArray,
+//               //serious
+//               seriousPedArray,
+//               //fatal
+//               fatalPedArray
+//             ]
+//           }, {
+//             seriesBarDistance: 5,
+//             axisX: {
+//               offset: 30
+//             },
+//             axisY: {
+//               offset: 30,
+//               high: 100,
+//               labelInterpolationFnc: function(value) {
+//                 return value + ''
+//               },
+//               scaleMinSpace: 15
+//             }
+//           });
+//       })
+//
+//         .error(function(errors) {
+//           console.log("barchart carto errors:", errors);
+//         });
+//
+//
+//
+//    });
    $('#Bike').click(function(){
      console.log("bike button clicked");
      layer.getSubLayer(0).setSQL("SELECT * FROM crash2011_2014v2 WHERE bicycle_count>0");
@@ -353,23 +358,8 @@ var pointLayer = cartodb.createLayer(app.map, {
     console.log("some error occurred",error);
 });
 
-//   }).addTo(app.map).on('shown.bs.tab', function (e) {
-//    layer.setInteraction(true);
-//    $('a[data-toggle="tab"]').on(function(){
-//      var target = $(e.target).attr("href") // activated tab
-//      console.log("target");
-//    })
-//  }).on('error', function(error) {
-//       console.log("some error occurred",error);
-//   });
 
- //$('#style1').click(function() {
-  //     layer.getSubLayer(0).setCartoCSS('#pacd_2011 { line-width: 5; line-color: #000; }');
-  //   });
 
-  //  layer.on('zoomend',function(e) {
-  //    console.log(data);
-  //  });
 
 //USING ZOOMEND TO CHANGE BACK TO POINTS
 app.map.on("zoomend", function (e) {showProperLayers(), console.log("ZOOMEND", e); })

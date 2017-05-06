@@ -91,7 +91,32 @@ new Chartist.Bar('.ct-chart', {
 console.log("barchart carto errors:", errors);
 });
 
+
+//SPEED LIMIT LAYER
+// var speedLimitLayer = cartodb.createLayer(app.map, {
+//      user_name: 'rfinfer',
+//      type: 'cartodb',
+//      sublayers: [
+//        {
+//          cartocss: '#layer { line-width: 1.5; line-color: red;}',
+//          sql: "SELECT * FROM streets", //what you want to show up originally
+//        }
+//      ]
+//
+//  })
+//  .addTo(app.map)
+//  .on('done', function(layer){
+//    console.log("we  did it");
+//  })
+//  .on('error', function(error) {
+//    console.log("some error occurred",error);
+// });
+
+// line-color: ramp([speedlimit], (#fff7f3, #fde0dd, #fcc5c0, #fa9fb5, #f768a1, #dd3497, #ae017e, #7a0177, #49006a, red , #666666), ("25", "30", "35", "40", "45", "CLASS 1", "CLASS 2", "CLASS 3", "CLASS 4", "CLASS 12"), "=");}',
+
 var pointSubLayer;
+
+
 
 console.log("appmap",app.map);
 var pointLayer = cartodb.createLayer(app.map, {
@@ -102,8 +127,19 @@ var pointLayer = cartodb.createLayer(app.map, {
        {
          cartocss: "#layer { marker-fill: #5642f4; }", //need to see if this should be filled in
          sql: "SELECT * FROM crash2011_2014v2", //what you want to show up originally
-       interactivity: ['person_count'],
+         interactivity: ['person_count'],
+       },
+       {
+         //cartocss: '#layer { line-width: 1.5; line-color: red;}',
+         cartocss: '#layer {line-width: 1; line-opacity: 0.5;[speedlimit = "25"]{line-color: #6c2167;}}',
+         sql: "SELECT * FROM streets", //what you want to show up originally
        }
+
+      //  {
+      //    cartocss: '#streets {line-width: 1.5;line-color: ramp([speedlimit], (#fff7f3, #fde0dd, #fcc5c0, #fa9fb5, #f768a1, #dd3497, #ae017e, #7a0177, #49006a, red , #666666), ("25", "30", "35", "40", "45", "CLASS 1", "CLASS 2", "CLASS 3", "CLASS 4", "CLASS 12"), "=");}',
+      //    sql: "SELECT * FROM streets", //what you want to show up originally
+      //    interactivity: false,
+      //  }
      ]
 
  })
@@ -117,6 +153,10 @@ var pointLayer = cartodb.createLayer(app.map, {
          console.log(data);
          $('#person_count').val(data.person_count);
    });
+
+
+
+
   // pointSubLayer.hide();
    //PED BUTTON
    $('#Ped').click(function(){

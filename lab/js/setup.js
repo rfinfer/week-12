@@ -30,11 +30,10 @@ app.geojsonClient.execute("SELECT * FROM crash2011_2014v2") // 'LIMIT' should be
   .done(function(data) {
     var heatLayerArray = data.features.map(function(feature){
         return feature.geometry.coordinates.reverse()
-    	});
+    });
     //Leaflet heat setup
-    heatLayer = L.heatLayer(
-    	heatLayerArray, {radius: 25, blur: 15}).addTo(app.map);
-      showProperLayers();
+    heatLayer = L.heatLayer(heatLayerArray, {radius: 25, blur: 15})//.addTo(app.map);
+    showProperLayers();
   })
   .error(function(errors) {
 
@@ -108,12 +107,16 @@ var pointLayer = cartodb.createLayer(app.map, {
      ]
 
  })
- //.addTo(app.map)
+ .addTo(app.map)
  .on('done', function(layer) {
    //return;
 
    pointSubLayer =  layer.getSubLayer(0);
-
+   pointSubLayer.setInteraction(true);
+     layer.on('featureClick',function(e, latlng, pos, data) {
+         console.log(data);
+         $('#person_count').val(data.person_count);
+   });
   // pointSubLayer.hide();
    //PED BUTTON
    $('#Ped').click(function(){
@@ -294,7 +297,10 @@ var pointLayer = cartodb.createLayer(app.map, {
 });
 
 //USING ZOOMEND TO CHANGE BACK TO POINTS
-app.map.on("zoomend", function (e) {showProperLayers2(), console.log("ZOOMEND", e); })
+app.map.on("zoomend", function (e) {
+  console.log("ZOOMEND", e);
+  showProperLayers();
+});
 
 var showProperLayers= function () {
   if (app.map.getZoom()<15){
@@ -314,19 +320,7 @@ var showProperLayers= function () {
 //subLayer1.hide();
 
 // var showPointLayer = function() {
-console.log("pointLayer1:", pointLayer);
-pointLayer.addTo(app.map);
+// console.log("pointLayer1:", pointLayer);
+// pointLayer.addTo(app.map);
 
 // }
-
-
-var showProperLayers2= function() {
-  if (app.map.getZoom()<15){
-    heatLayer.addTo(app.map);
-    console.log("showNewHeatLayer");
-  } else {
-    app.map.removeLayer(heatLayer);
-    console.log("pointLayer2:", pointLayer);
-    pointLayer.addTo(app.map);
-  }
-}

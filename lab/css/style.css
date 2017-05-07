@@ -14,6 +14,11 @@ body {
     padding: 0px 10px 0px 10px;
 }
 
+.filter-buttons {
+  margin-left: 21px;
+  color: #727272;
+  font-family: PT Sans;
+}
 .map {
     position: absolute;
     right: 0px;
@@ -56,7 +61,7 @@ font-family: PT Sans;
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
-  color: #79989b;
+  color: #727272;
 }
 p{
   font-family: PT Sans;
@@ -65,7 +70,7 @@ p{
   font-variant: normal;
   font-weight: 500;
   line-height: 26.4px;
-  color: teal;
+  color: #727272;
 }
 
 .input-group{
@@ -160,41 +165,100 @@ p{
     font-size: 14px;
     font-weight: bold;
 }
-
 .ct-legend {
+  padding-top: 136px;
+  padding-left: 61px;
+  position: absolute;
+  list-style: none;
+  z-index: 10;
+  font-family: PT Sans;
+  color: #727272;
+}
+
+ul.legend {
+  padding-top:10px;
+}
+
+.legend li {
+  position: relative;
+  padding-left: 23px;
+  margin-bottom: 3px;
+  display: inline-block;
+  margin-right: 15px;
+  font-family: PT Sans;
+  color: #727272;
+}
+
+.legend li:before {
+  width: 12px;
+  height: 0px;
+  top: 9px;
+  position: absolute;
+  left: 0;
+  content: '';
+  border: 1.5px solid;
+  border-radius: 2px;
+}
+
+.legend li.mph25:before {
+  border-color: #fff7f3;
+}
+.legend li.mph30:before {
+  border-color: #fde0dd;
+}
+.legend li.mph35:before {
+  border-color: #fdbb84;
+}
+.legend li.mph40:before {
+  border-color: #fa9fb5;
+}
+.legend li.mph45:before {
+  border-color: #f768a1;
+}
+
+
+.ct-legend li {
     position: relative;
-    z-index: 10;
+    padding-left: 23px;
+    margin-bottom: 3px;
+    display: inline-block;
+    margin-right: 15px;
+}
 
-    li {
-        position: relative;
-        padding-left: 23px;
-        margin-bottom: 3px;
-    }
+.ct-legend li:before {
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    position: absolute;
+    left: 0;
+    content: '';
+    border: 3px solid transparent;
+    border-radius: 2px;
+}
 
-    li:before {
-        width: 12px;
-        height: 12px;
-        position: absolute;
-        left: 0;
-        content: '';
-        border: 3px solid transparent;
-        border-radius: 2px;
-    }
+.ct-legend li.inactive:before {
+    background: transparent;
+}
 
-    li.inactive:before {
-        background: transparent;
-    }
+&.ct-legend-inside {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
-    &.ct-legend-inside {
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-    @for $i from 0 to length($ct-series-colors) {
-        .ct-series-#{$i}:before {
-            background-color: nth($ct-series-colors, $i + 1);
-            border-color: nth($ct-series-colors, $i + 1);
-        }
-    }
+.ct-legend .ct-series-0:before {
+    background-color: #d70206;
+    border-color: #d70206;
+    border-top-color: rgb(215, 2, 6);
+    border-right-color: rgb(215, 2, 6);
+    border-bottom-color: rgb(215, 2, 6);
+    border-left-color: rgb(215, 2, 6);
+}
+.ct-legend .ct-series-1:before {
+    background-color: rgb(240, 91, 79);
+    border-color: rgb(240, 91, 79);
+    border-top-color: rgb(240, 91, 79);
+    border-right-color: rgb(240, 91, 79);
+    border-bottom-color: rgb(240, 91, 79);
+    border-left-color: rgb(240, 91, 79);
 }

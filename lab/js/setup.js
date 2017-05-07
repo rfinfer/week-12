@@ -64,12 +64,13 @@ app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_c
 new Chartist.Bar('.ct-chart', {
   labels: ['2011', '2012', '2013', '2014'],
   series: [
+    {"name": "Serious Crashes", "data": seriousArray},
     //total = allData.rows.count
     //totalArray,
     //serious
-    seriousArray,
+
     //fatal
-    fatalArray
+    {"name": "Fatal Crashes", "data": fatalArray}
   ]
 }, {
   seriesBarDistance: 5,
@@ -83,7 +84,10 @@ new Chartist.Bar('.ct-chart', {
       return value + ''
     },
     scaleMinSpace: 15
-  }
+  },
+  plugins: [
+    Chartist.plugins.legend()
+ ]
 });
 })
 

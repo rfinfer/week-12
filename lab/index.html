@@ -20,13 +20,13 @@
       <div class="title"> Serious and Fatal Crashes in Philadelphia</div>
       <p> 2011-2014</p>
 
-   <div class="btn-group btn-group-sm" role="group" aria-label="...">
+   <div class="btn-group btn-group-sm filter-buttons" role="group" aria-label="...">
         <button type="button" id= "All" class="btn btn-default">All Crashes</button>
         <button type="button" id = "Bike" class="btn btn-default">Bicycle Crashes</button>
         <button type="button" id = "Ped" class="btn btn-default">Pedestrian Crashes</button>
       </div>
 
-      <div class="input-group">
+<!--      <div class="input-group">
         <input id="person_count" type="number"
                class="form-control"
                placeholder="person_count"
@@ -81,6 +81,15 @@
 
           </p>
         </div> -->
+
+
+          <ul class = "legend">
+          <li class= "mph25">25 MPH</li>
+          <li class= "mph30">30 MPH</li>
+          <li class= "mph35">35 MPH</li>
+          <li class= "mph40">40 MPH</li>
+          <li class= "mph45">45 +</li>
+        </ul>
         <div class = "ct-chart">
         </div>
       </div>
@@ -136,6 +145,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.js"></script>
     <script src="js/leaflet-heat.js"></script>
     <script src="js/chartist.js"></script>
+    <script src="js/chartist-plugin-legend.js"></script>
     <script src="js/setup.js"></script>
 
   </body>

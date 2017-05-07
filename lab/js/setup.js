@@ -91,29 +91,6 @@ new Chartist.Bar('.ct-chart', {
 console.log("barchart carto errors:", errors);
 });
 
-
-//SPEED LIMIT LAYER
-// var speedLimitLayer = cartodb.createLayer(app.map, {
-//      user_name: 'rfinfer',
-//      type: 'cartodb',
-//      sublayers: [
-//        {
-//          cartocss: '#layer { line-width: 1.5; line-color: red;}',
-//          sql: "SELECT * FROM streets", //what you want to show up originally
-//        }
-//      ]
-//
-//  })
-//  .addTo(app.map)
-//  .on('done', function(layer){
-//    console.log("we  did it");
-//  })
-//  .on('error', function(error) {
-//    console.log("some error occurred",error);
-// });
-
-// line-color: ramp([speedlimit], (#fff7f3, #fde0dd, #fcc5c0, #fa9fb5, #f768a1, #dd3497, #ae017e, #7a0177, #49006a, red , #666666), ("25", "30", "35", "40", "45", "CLASS 1", "CLASS 2", "CLASS 3", "CLASS 4", "CLASS 12"), "=");}',
-
 var pointSubLayer;
 
 
@@ -125,21 +102,17 @@ var pointLayer = cartodb.createLayer(app.map, {
      interactivity: true,
      sublayers: [
        {
+         //cartocss: '#layer { line-width: 1.5; line-color: red;}',
+         //cartocss: '#layer {line-width: 1; line-opacity: 0.5;[speedlimit = "25"]{line-color: #6c2167;}}',
+         cartocss: '#layer {line-width: 2.5; [speedlimit = "25"]{line-color: #fff7f3;}[speedlimit = "30"]{line-color: #fde0dd;}[speedlimit = "35"]{line-color: #fdbb84;}[speedlimit = "40"]{line-color: #fa9fb5;}[speedlimit = "45"]{line-color: #f768a1;}[speedlimit = "CLASS 1"]{line-color: #dd3497;}[speedlimit = "CLASS 2"]{line-color: #ae017e;}[speedlimit = "CLASS 3"]{line-color: #7a0177;}[speedlimit = "CLASS 4"]{line-color: #49006a;}[speedlimit = "CLASS 12"]{line-color: #3f007d;}}',
+         sql: "SELECT * FROM streets", //what you want to show up originally
+       },
+       {
          cartocss: "#layer { marker-fill: #5642f4; }", //need to see if this should be filled in
          sql: "SELECT * FROM crash2011_2014v2", //what you want to show up originally
          interactivity: ['person_count'],
-       },
-       {
-         //cartocss: '#layer { line-width: 1.5; line-color: red;}',
-         cartocss: '#layer {line-width: 1; line-opacity: 0.5;[speedlimit = "25"]{line-color: #6c2167;}}',
-         sql: "SELECT * FROM streets", //what you want to show up originally
        }
 
-      //  {
-      //    cartocss: '#streets {line-width: 1.5;line-color: ramp([speedlimit], (#fff7f3, #fde0dd, #fcc5c0, #fa9fb5, #f768a1, #dd3497, #ae017e, #7a0177, #49006a, red , #666666), ("25", "30", "35", "40", "45", "CLASS 1", "CLASS 2", "CLASS 3", "CLASS 4", "CLASS 12"), "=");}',
-      //    sql: "SELECT * FROM streets", //what you want to show up originally
-      //    interactivity: false,
-      //  }
      ]
 
  })
@@ -147,7 +120,7 @@ var pointLayer = cartodb.createLayer(app.map, {
  .on('done', function(layer) {
    //return;
 
-   pointSubLayer =  layer.getSubLayer(0);
+   pointSubLayer =  layer.getSubLayer(1);
    pointSubLayer.setInteraction(true);
      layer.on('featureClick',function(e, latlng, pos, data) {
          console.log(data);
@@ -161,8 +134,8 @@ var pointLayer = cartodb.createLayer(app.map, {
    //PED BUTTON
    $('#Ped').click(function(){
      console.log("ped button clicked");
-     layer.getSubLayer(0).setSQL("SELECT * FROM crash2011_2014v2 WHERE ped_count>0");
-     layer.getSubLayer(0).setCartoCSS("#layer { marker-fill: #5cc490;}")
+     pointSubLayer.setSQL("SELECT * FROM crash2011_2014v2 WHERE ped_count>0");
+     pointSubLayer.setCartoCSS("#layer { marker-fill: #5cc490;}")
       //CHART FOR PED CRASHES
       app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 WHERE ped_count>0 GROUP BY crash_year ORDER BY crash_year")
         .done(function(data) {
@@ -223,8 +196,8 @@ var pointLayer = cartodb.createLayer(app.map, {
   //BIKE CLICK EVENT
    $('#Bike').click(function(){
      console.log("bike button clicked");
-     layer.getSubLayer(0).setSQL("SELECT * FROM crash2011_2014v2 WHERE bicycle_count>0");
-     layer.getSubLayer(0).setCartoCSS("#layer { marker-fill: #45b7cc;}")
+     pointSubLayer.setSQL("SELECT * FROM crash2011_2014v2 WHERE bicycle_count>0");
+     pointSubLayer.setCartoCSS("#layer { marker-fill: #45b7cc;}")
      app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 WHERE bicycle_count>0 GROUP BY crash_year ORDER BY crash_year")
        .done(function(data) {
          allData = data;
@@ -279,9 +252,9 @@ var pointLayer = cartodb.createLayer(app.map, {
    //ALL CRASHES CLICK EVENT
    $('#All').click(function(){
      console.log("all button clicked");
-     layer.getSubLayer(0).setSQL("SELECT * FROM crash2011_2014v2");
-        layer.getSubLayer(0).setCartoCSS("#layer { marker-fill: #5642f4;}")
-        app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 GROUP BY crash_year ORDER BY crash_year")
+     pointSubLayer.setSQL("SELECT * FROM crash2011_2014v2");
+     pointSubLayer.setCartoCSS("#layer { marker-fill: #5642f4;}")
+     app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 GROUP BY crash_year ORDER BY crash_year")
           .done(function(data) {
             allData = data;
 
@@ -349,7 +322,7 @@ var showProperLayers= function () {
     console.log("showHeatLayer");
   }  else {
     app.map.removeLayer(heatLayer);
-    pointLayer.addTo(app.map);
+  //  pointLayer.addTo(app.map);
 //getting an error says pointSubLayer isn't a function?
     console.log("pointLayer", pointLayer);
     console.log("appmap",app.map);

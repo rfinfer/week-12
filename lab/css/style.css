@@ -82,21 +82,21 @@ p{
 }
 #All{
   font-size: 12;
-  background-color: #5642f4;
+  background-color: #016c59;
   color: white;
   border-radius: 12px;
   font-family: PT Sans;
 }
 #Ped{
   font-size: 12;
-  background-color: #5cc490;
+  background-color: #67a9cf;
   color: white;
   border-radius: 12px;
   font-family: PT Sans;
 }
 #Bike {
   font-size: 12;
-  background-color: #45b7cc;
+  background-color: #1c9099;
   color: white;
   border-radius: 12px;
   font-family: PT Sans;
@@ -199,21 +199,20 @@ ul.legend {
   border: 1.5px solid;
   border-radius: 2px;
 }
-
+.legend li.mph15:before{
+  border-color: #feebe2;
+}
 .legend li.mph25:before {
-  border-color: #fff7f3;
+  border-color: #fcc5c0;
 }
 .legend li.mph30:before {
-  border-color: #fde0dd;
+  border-color: #f768a1;
 }
 .legend li.mph35:before {
-  border-color: #fdbb84;
+  border-color: #c51b8a;
 }
 .legend li.mph40:before {
-  border-color: #fa9fb5;
-}
-.legend li.mph45:before {
-  border-color: #f768a1;
+  border-color: #7a0177;
 }
 
 

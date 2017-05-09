@@ -200,7 +200,7 @@ ul.legend {
   border-radius: 2px;
 }
 .legend li.mph15:before{
-  border-color: #feebe2;
+  border-color: #ffdbed;
 }
 .legend li.mph25:before {
   border-color: #fcc5c0;

@@ -21,10 +21,6 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 var heatLayer;
 var allData;
 
-//put this inside the click events
-//keep track of previous one so you can delete it
-//global variable to keep track of variables and change with button click
-
 // The initial query by which we map the geojson representation of a table
 app.geojsonClient.execute("SELECT * FROM crash2011_2014v2") // 'LIMIT' should be added to the end of this line
   .done(function(data) {
@@ -40,7 +36,7 @@ app.geojsonClient.execute("SELECT * FROM crash2011_2014v2") // 'LIMIT' should be
   });
 
 
-//ALL CRASHES (ORIGINALLY ADDED TO THE MAP BUT NOW JUST WANT TO ADD ON THE ZOOMEND)
+//ALL CRASHES
 app.jsonClient.execute("SELECT crash_year, count(*), sum(fatal_count) as fatal_count_sum, sum(maj_inj_count) as maj_inj_count_sum FROM crash2011_2014v2 GROUP BY crash_year ORDER BY crash_year")
   .done(function(data) {
     allData = data;
@@ -98,7 +94,6 @@ console.log("barchart carto errors:", errors);
 var pointSubLayer;
 
 
-
 console.log("appmap",app.map);
 function addPointLayer() {
 var pointLayer = cartodb.createLayer(app.map, {
@@ -107,9 +102,7 @@ var pointLayer = cartodb.createLayer(app.map, {
      interactivity: true,
      sublayers: [
        {
-         //cartocss: '#layer { line-width: 1.5; line-color: red;}',
-         //cartocss: '#layer {line-width: 1; line-opacity: 0.5;[speedlimit = "25"]{line-color: #6c2167;}}',
-         cartocss: '#layer {line-width: 2.5; [speedlimit = "25"]{line-color: #fcc5c0;}[speedlimit = "30"]{line-color: #f768a1;}[speedlimit = "35"]{line-color: #c51b8a;}[speedlimit = "40"]{line-color: #7a0177;}[speedlimit = "45"]{line-color: #7a0177;}[speedlimit = "CLASS 1"]{line-color: #7a0177;}[speedlimit = "CLASS 2"]{line-color: #c51b8a;}[speedlimit = "CLASS 3"]{line-color: #fcc5c0;}[speedlimit = "CLASS 4"]{line-color: #feebe2;}[speedlimit = "CLASS 12"]{line-color: white;}}',
+         cartocss: '#layer {line-width: 2.5; [speedlimit = "25"]{line-color: #ffdbed;}[speedlimit = "30"]{line-color: #f768a1;}[speedlimit = "35"]{line-color: #c51b8a;}[speedlimit = "40"]{line-color: #7a0177;}[speedlimit = "45"]{line-color: #7a0177;}[speedlimit = "CLASS 10"]{line-color: #7a0177;}[speedlimit = "CLASS 1"]{line-color: #7a0177;}[speedlimit = "CLASS 2"]{line-color: #c51b8a;}[speedlimit = "CLASS 3"]{line-color: #fcc5c0;}[speedlimit = "CLASS 4"]{line-color: #ffdbed;}[speedlimit = "CLASS 5"]{line-color: #ffdbed;}[speedlimit = "CLASS 12"]{line-color: white;}[speedlimit = "CLASS 9"]{line-color: #fcc5c0;}}',
          sql: "SELECT * FROM streets", //what you want to show up originally
        },
        {

@@ -99,6 +99,7 @@ function addPointLayer() {
 var pointLayer = cartodb.createLayer(app.map, {
      user_name: 'rfinfer',
      type: 'cartodb',
+     https: true,
      interactivity: true,
      sublayers: [
        {

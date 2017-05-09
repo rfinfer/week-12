@@ -99,7 +99,6 @@ function addPointLayer() {
 var pointLayer = cartodb.createLayer(app.map, {
      user_name: 'rfinfer',
      type: 'cartodb',
-     https: true,
      interactivity: true,
      sublayers: [
        {
@@ -113,8 +112,9 @@ var pointLayer = cartodb.createLayer(app.map, {
        }
 
      ]
-
- })
+ },{
+  https: true
+})
  .addTo(app.map)
  .on('done', function(layer) {
    //return;
@@ -317,17 +317,21 @@ app.map.on("zoomend", function (e) {
 
 var showProperLayers= function () {
   if (app.map.getZoom()<15){
-    heatLayer.addTo(app.map);
+    if (typeof(heatLayer) !== 'undefined') {
+      heatLayer.addTo(app.map);
+    }
     if (typeof(pointLayer) !== 'undefined') {
       app.map.removeLayer(pointLayer);
-
     }
 
     //pointSubLayer.hide();
     console.log("showHeatLayer");
   }  else {
-    app.map.removeLayer(heatLayer);
+    if (typeof(heatLayer) !== 'undefined') {
+      app.map.removeLayer(heatLayer);
+    }
     addPointLayer();
+
   //  pointLayer.addTo(app.map);
 //getting an error says pointSubLayer isn't a function?
     //console.log("pointLayer", pointLayer);

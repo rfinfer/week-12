@@ -109,7 +109,7 @@ var pointLayer = cartodb.createLayer(app.map, {
        {
          cartocss: "#layer { marker-fill: #016c59; }", //need to see if this should be filled in
          sql: "SELECT * FROM crash2011_2014v2", //what you want to show up originally
-         interactivity: ['person_count'],
+         //interactivity: ['person_count'],
        }
 
      ]
@@ -120,11 +120,11 @@ var pointLayer = cartodb.createLayer(app.map, {
    //return;
 
    pointSubLayer =  layer.getSubLayer(1);
-   pointSubLayer.setInteraction(true);
-     layer.on('featureClick',function(e, latlng, pos, data) {
-         console.log(data);
-         $('#person_count').val(data.person_count);
-   });
+  //  pointSubLayer.setInteraction(true);
+  //    layer.on('featureClick',function(e, latlng, pos, data) {
+  //        console.log(data);
+  //        $('#person_count').val(data.person_count);
+  //  });
 
 
 

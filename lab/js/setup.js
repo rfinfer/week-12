@@ -102,7 +102,7 @@ var pointLayer = cartodb.createLayer(app.map, {
      interactivity: true,
      sublayers: [
        {
-         cartocss: '#layer {line-width: 2.5; [speedlimit = "25"]{line-color: #ffdbed;}[speedlimit = "30"]{line-color: #f768a1;}[speedlimit = "35"]{line-color: #c51b8a;}[speedlimit = "40"]{line-color: #7a0177;}[speedlimit = "45"]{line-color: #7a0177;}[speedlimit = "CLASS 10"]{line-color: #7a0177;}[speedlimit = "CLASS 1"]{line-color: #7a0177;}[speedlimit = "CLASS 2"]{line-color: #c51b8a;}[speedlimit = "CLASS 3"]{line-color: #fcc5c0;}[speedlimit = "CLASS 4"]{line-color: #ffdbed;}[speedlimit = "CLASS 5"]{line-color: #ffdbed;}[speedlimit = "CLASS 12"]{line-color: white;}[speedlimit = "CLASS 9"]{line-color: #fcc5c0;}}',
+         cartocss: '#layer {line-width: 2.5; line-color:transparent; [speedlimit = "25"]{line-color: #ffdbed;}[speedlimit = "30"]{line-color: #f768a1;}[speedlimit = "35"]{line-color: #c51b8a;}[speedlimit = "40"]{line-color: #7a0177;}[speedlimit = "45"]{line-color: #7a0177;}[speedlimit = "CLASS 10"]{line-color: #7a0177;}[speedlimit = "CLASS 1"]{line-color: #7a0177;}[speedlimit = "CLASS 2"]{line-color: #c51b8a;}[speedlimit = "CLASS 3"]{line-color: #fcc5c0;}[speedlimit = "CLASS 4"]{line-color: #ffdbed;}[speedlimit = "CLASS 5"]{line-color: #ffdbed;}[speedlimit = "CLASS 12"]{line-color: white;}[speedlimit = "CLASS 9"]{line-color: #fcc5c0;}}',
          sql: "SELECT * FROM streets", //what you want to show up originally
        },
        {
@@ -335,6 +335,11 @@ var showProperLayers= function () {
   }
 
 };
+//Note - The carto layers are still corrupting the heat layer when the map is zoomed back out. This is
+//because there is apparently no way to REMOVE a carto layer (that I could find), only a way to hide them.
+
+
+
 //subLayer1.hide();
 
 // var showPointLayer = function() {
